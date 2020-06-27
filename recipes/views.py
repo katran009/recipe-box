@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 from recipes.models import RecipeItem, Author
-from recipes.forms import NewsAddForm, AuthorAddForm, LoginForm
+from recipes.forms import RecipesAddForm, AuthorAddForm, LoginForm
 
 
 def loginview(request):
@@ -42,7 +42,7 @@ def recipeadd(request):
     html = "generic_form.html"
 
     if request.method == "POST":
-        form = NewsAddForm(request.POST)
+        form = RecipesAddForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
             RecipeItem.objects.create(
@@ -52,7 +52,7 @@ def recipeadd(request):
             )
             return HttpResponseRedirect(reverse('homepage'))
 
-    form = NewsAddForm()
+    form = RecipesAddForm()
 
     return render(request, html, {'form': form})
 
